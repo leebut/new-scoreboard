@@ -1,4 +1,1 @@
-A basic project boilerplate with:
-
-- vite
-- eslint
+This will be a cricket scoreboard.
