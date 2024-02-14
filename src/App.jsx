@@ -1,10 +1,10 @@
-import { useReducer } from 'react';
-import './App.css';
-import './index.css';
+import { useReducer } from "react";
+import "./App.css";
+import "./index.css";
 
 const homeTeamInitialState = {
   homeTeamBatting: true,
-  homeTeamName: '',
+  homeTeamName: "Savage",
   homeTeamPlayers: [],
   homeTeamScore: 0,
   homeTeamExtras: { noballs: 0, wides: 0 },
@@ -15,7 +15,7 @@ const homeTeamInitialState = {
 
 const awayTeamInitialState = {
   awayTeamBatting: false,
-  awayTeamName: '',
+  awayTeamName: "",
   awayTeamPlayers: [],
   awayTeamScore: 0,
   awayTeamExtras: { noballs: 0, wides: 0 },
@@ -24,23 +24,28 @@ const awayTeamInitialState = {
   awayTeamRuns: 0,
 };
 
-function homeTeamReducer(state, action) {
+function homeTeamReducer(homeTeamState, action) {
   switch (action.type) {
-    case 'added/homePlayer': {
+    case "added/homePlayer": {
       return {
-        ...state,
-        homeTeamPlayers: [...state.homeTeamPlayers, action.payload],
+        ...homeTeamState,
+        homeTeamPlayers: [...homeTeamState.homeTeamPlayers, action.payload],
       };
     }
+    case "deleted/homePlayer": {
+      return {...homeTeamState, homeTeamPlayers: homeTeamState.homeTeamPlayers.filter(player => player.id !== action.payload)}
+
+    }
+    default: return new Error("You cannot do that.")
   }
 }
 
-function awayTeamReducer(state, action) {
+function awayTeamReducer(awayTeamState, action) {
   switch (action.type) {
-    case 'added/awayPlayer': {
+    case "added/awayPlayer": {
       return {
-        ...state,
-        awayTeamPlayers: [...state.awayTeamPlayers, action.payload],
+        ...awayTeamState,
+        awayTeamPlayers: [...awayTeamState.awayTeamPlayers, action.payload],
       };
     }
   }
@@ -49,48 +54,70 @@ function awayTeamReducer(state, action) {
 function App() {
   const [
     {
-      homeTeamBatting,
+      //     homeTeamBatting,
       homeTeamName,
       homeTeamPlayers,
-      homeTeamScore,
-      homeTeamExtras,
-      homeTeamWickets,
-      homeTeamOvers,
-      homeTeamRuns,
+      //     homeTeamScore,
+      //     homeTeamExtras,
+      //     homeTeamWickets,
+      //     homeTeamOvers,
+      //     homeTeamRuns,
     },
-    dispatch,
+    dispatchHT,
   ] = useReducer(homeTeamReducer, homeTeamInitialState);
+
+  const homeTeamList = homeTeamPlayers;
 
   const [
     {
-      awayTeamBatting,
+    //   awayTeamBatting,
       awayTeamName,
       awayTeamPlayers,
-      awayTeamScore,
-      awayTeamExtras,
-      awayTeamWickets,
-      awayTeamOvers,
-      awayTeamRuns,
-    },
-    dispatch1,
+    //   awayTeamScore,
+    //   awayTeamExtras,
+    //   awayTeamWickets,
+    //   awayTeamOvers,
+    //   awayTeamRuns,
+     },
+        dispatchAT,
   ] = useReducer(awayTeamReducer, awayTeamInitialState);
+
+  const playerId = crypto.randomUUID();
+
   return (
     <>
-      <h1>Page One </h1>
-      <button
-        onClick={() =>
-          dispatch({ type: 'added/homePlayer', payload: 'Leggo Logran' })
-        }
-      >
-        Add Home Player
-      </button>
-      <button
-        onClick={() =>
-          dispatch1({ type: 'added/awayPlayer', payload: 'Savage Socks' })
-        }
-      >
-        Add Away Player
-      </button>
+    {/* ------------------------------ H O M E  T E A M ------------------------------ */}
+      
+      <h1>Home Team</h1>
+      <input
+        type="text"
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            dispatchHT({ type: "added/homePlayer", payload: {"id": playerId, "name": e.target.value }});
+          }
+        }}
+      />
+
+<ul>
+{homeTeamPlayers.map((player, idx) => (
+  <li key={player.id}>{`${idx + 1} ${player.name}`} <button onClick={() => dispatchHT({type: "took/playerBatting", payload: true})}>Batting</button><button onClick={() => dispatchHT({type: "deleted/homePlayer", payload: player.id})}>Remove</button></li>
+))}
+    </ul>  
+
+{/* ------------------------------ A W A Y  T E A M ------------------------------ */}
+<p>away team list here</p>
+      <h1>Away Team</h1>
+      <input
+        type="text"
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            dispatchAT({ type: "added/awayPlayer", payload: e.target.value });
+          }
+        }}
+      />
+
+
+      
     </>
   );
 }
