@@ -57,7 +57,7 @@ function awayTeamReducer(awayTeamState, action) {
 }
 
 const batterInitialState = {
-  allBattersRuns: [],
+  allBattersRuns: [{id: null, runs: 0}],
   currBatterId: "",
   currBatterName: "",
   currBatterRuns: 0,
@@ -83,13 +83,12 @@ function batterReducer(batterState, action) {
     case "runs/scored": {
       return {
         ...batterState, 
-        ...(batterState.currBatterId !== "2" 
-          ? (
-              console.log(batterState.currBatterId, batterState.currBatterName)
-              
-        )
-          : {}
-        ),
+        ...(batterState.currBatterId !== "2" ? { 
+              // console.log(batterState.currBatterId, batterState.currBatterName)
+           allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]
+      }
+          : {})
+        
       };
     }
     }
@@ -198,19 +197,19 @@ function App() {
       <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 1 })}}>
         1 run
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 2 })}}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 2 }), dispatchBatter({ type: "hit/runs", payload: 2 })}}>
         2 runs
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 3 })}}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 3 }), dispatchBatter({ type: "hit/runs", payload: 3 })}}>
         3 runs
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 4 })}}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 4 }), dispatchBatter({ type: "hit/runs", payload: 4 })}}>
         4 runs
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 5 })}}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 5 }), dispatchBatter({ type: "hit/runs", payload: 5 })}}>
         5 runs
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 6 })}}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 6 }), dispatchBatter({ type: "hit/runs", payload: 6 })}}>
         6 runs
       </button>
     </>
