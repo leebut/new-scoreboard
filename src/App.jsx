@@ -195,22 +195,22 @@ function App() {
         }}
       />
       <br />
-      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 1 })}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 1 })}}>
         1 run
       </button>
-      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 2 })}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 2 })}}>
         2 runs
       </button>
-      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 3 })}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 3 })}}>
         3 runs
       </button>
-      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 4 })}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 4 })}}>
         4 runs
       </button>
-      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 5 })}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 5 })}}>
         5 runs
       </button>
-      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 6 })}>
+      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 6 })}}>
         6 runs
       </button>
     </>
