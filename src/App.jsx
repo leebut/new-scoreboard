@@ -78,17 +78,22 @@ function batterReducer(batterState, action) {
         currBatterRuns:
           Number(batterState.currBatterRuns) + Number(action.payload),
         currBatterBalls: Number(batterState.currBatterBalls + 1),
-        
-        allBattersRuns: [
-          {
-            id: batterState.currBatterId,
-            runs: Number(batterState.currBatterRuns) + Number(action.payload),
-            balls: Number(batterState.currBatterBalls) + 1,
-          },
-        ]
       };
     }
-  }
+    case "runs/scored": {
+      return {
+        ...batterState, 
+        ...(batterState.currBatterId !== "2" 
+          ? (
+              console.log(batterState.currBatterId, batterState.currBatterName)
+              
+        )
+          : {}
+        ),
+      };
+    }
+    }
+  
 }
 
 function App() {
@@ -190,22 +195,22 @@ function App() {
         }}
       />
       <br />
-      <button onClick={() => dispatchBatter({ type: "hit/runs", payload: 1 })}>
+      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 1 })}>
         1 run
       </button>
-      <button onClick={() => dispatchBatter({ type: "hit/runs", payload: 2 })}>
+      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 2 })}>
         2 runs
       </button>
-      <button onClick={() => dispatchBatter({ type: "hit/runs", payload: 3 })}>
+      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 3 })}>
         3 runs
       </button>
-      <button onClick={() => dispatchBatter({ type: "hit/runs", payload: 4 })}>
+      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 4 })}>
         4 runs
       </button>
-      <button onClick={() => dispatchBatter({ type: "hit/runs", payload: 5 })}>
+      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 5 })}>
         5 runs
       </button>
-      <button onClick={() => dispatchBatter({ type: "hit/runs", payload: 6 })}>
+      <button onClick={() => dispatchBatter({ type: "runs/scored", payload: 6 })}>
         6 runs
       </button>
     </>
