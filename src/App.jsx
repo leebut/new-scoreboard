@@ -73,6 +73,7 @@ function batterReducer(batterState, action) {
       };
     }
     case "hit/runs": {
+      
       return {
         ...batterState,
         currBatterRuns:
@@ -81,17 +82,20 @@ function batterReducer(batterState, action) {
       };
     }
     case "runs/scored": {
+      const checkBatterExists = batterState.allBattersRuns.find((batter) => batter.id === batterState.currBatterId);
+
+      if(checkBatterExists) {
+      console.log("Yep! Here!");
+      return {...batterState.allBattersRuns};
+      }
       return {
         ...batterState, 
-        // ...(batterState.currBatterId !== "2" ? { 
-             ...batterState.allBattersRuns.find((batterExists) => batterExists.id !== batterState.currBatterId) ? {allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]} : alert("Found"),
+             ...batterState.allBattersRuns.find((batterExists) => batterExists.id !== batterState.currBatterId) ? {allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]} : alert("Found")
           //  allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]
-      }
-          // : {})
-        
-      };
-    }
-    }
+      }  
+    };
+  }
+}
   
 // }
 
@@ -194,22 +198,22 @@ function App() {
         }}
       />
       <br />
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 1 }), dispatchBatter({ type: "hit/runs", payload: 1 })}}>
+      <button onClick={() => {dispatchBatter({ type: "hit/runs", payload: Number(1) }), dispatchBatter({ type: "runs/scored", payload: Number(1) })}}>
         1 run
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 2 }), dispatchBatter({ type: "hit/runs", payload: 2 })}}>
+      <button onClick={() => {dispatchBatter({ type: "hit/runs", payload: Number(2) }), dispatchBatter({ type: "runs/scored", payload: Number(2) })}}>
         2 runs
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 3 }), dispatchBatter({ type: "hit/runs", payload: 3 })}}>
+      <button onClick={() => {dispatchBatter({ type: "hit/runs", payload: Number(3) }), dispatchBatter({ type: "runs/scored", payload: Number(3) })}}>
         3 runs
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 4 }), dispatchBatter({ type: "hit/runs", payload: 4 })}}>
+      <button onClick={() => {dispatchBatter({ type: "hit/runs", payload: Number(4) }), dispatchBatter({ type: "runs/scored", payload: Number(4) })}}>
         4 runs
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 5 }), dispatchBatter({ type: "hit/runs", payload: 5 })}}>
+      <button onClick={() => {dispatchBatter({ type: "hit/runs", payload: Number(5) }), dispatchBatter({ type: "runs/scored", payload: Number(5) })}}>
         5 runs
       </button>
-      <button onClick={() => {dispatchBatter({ type: "runs/scored", payload: 6 }), dispatchBatter({ type: "hit/runs", payload: 6 })}}>
+      <button onClick={() => {dispatchBatter({ type: "hit/runs", payload: Number(6) }), dispatchBatter({ type: "runs/scored", payload: Number(6) })}}>
         6 runs
       </button>
     </>
