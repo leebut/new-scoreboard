@@ -84,7 +84,7 @@ function batterReducer(batterState, action) {
       return {
         ...batterState, 
         ...(batterState.currBatterId !== "2" ? { 
-             ...batterState.allBattersRuns.find((batterExists) => batterExists !== batterState.currBatterId) ? alert("Found it!") : alert("Not found"),
+             ...batterState.allBattersRuns.find((batterExists) => batterExists.id === batterState.currBatterId) ? alert("Found") : alert("Not found"),
            allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]
       }
           : {})
