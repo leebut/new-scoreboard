@@ -86,7 +86,7 @@ function batterReducer(batterState, action) {
 
       if(checkBatterExists) {
       console.log("Yep! Here!");
-      return {...batterState.allBattersRuns};
+      // Got to improve this to tidy up the return.
       }
       return {
         ...batterState, 
