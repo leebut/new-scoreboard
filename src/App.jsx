@@ -83,17 +83,17 @@ function batterReducer(batterState, action) {
     case "runs/scored": {
       return {
         ...batterState, 
-        ...(batterState.currBatterId !== "2" ? { 
-             ...batterState.allBattersRuns.find((batterExists) => batterExists.id === batterState.currBatterId) ? alert("Found") : alert("Not found"),
-           allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]
+        // ...(batterState.currBatterId !== "2" ? { 
+             ...batterState.allBattersRuns.find((batterExists) => batterExists.id !== batterState.currBatterId) ? {allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]} : alert("Found"),
+          //  allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]
       }
-          : {})
+          // : {})
         
       };
     }
     }
   
-}
+// }
 
 function App() {
   const [
