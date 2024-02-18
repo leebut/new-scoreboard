@@ -187,8 +187,8 @@ function App() {
               Remove
             </button>
             {allBattersRuns.map((batter) => (
-              
-              <p key={batter.id}>{batter.runs}</p>
+              batter.id === player.id ?
+              <span key={batter.id}>{batter.runs} {batter.balls}</span> : ""
             ))}
           </li>
         ))}
