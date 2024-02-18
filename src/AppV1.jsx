@@ -57,7 +57,7 @@ function awayTeamReducer(awayTeamState, action) {
 }
 
 const batterInitialState = {
-  allBattersRuns: [],
+  allBattersRuns: [{id: null, runs: 0}],
   currBatterId: "",
   currBatterName: "",
   currBatterRuns: 0,
@@ -77,33 +77,28 @@ function batterReducer(batterState, action) {
       return {
         ...batterState,
         currBatterRuns:
-          batterState.currBatterRuns + action.payload,
+          Number(batterState.currBatterRuns) + Number(action.payload),
         currBatterBalls: Number(batterState.currBatterBalls + 1),
       };
     }
-
     case "runs/scored": {
       const checkBatterExists = batterState.allBattersRuns.find((batter) => batter.id === batterState.currBatterId);
-     
+
       if(checkBatterExists) {
-      console.log("Yep! Here! ", action.payload);
-      return {
-        ...batterState, 
-        allBattersRuns: batterState.allBattersRuns.map((batter) => batter.id === batterState.currBatterId ? {...batter, runs: Number(batter.runs) + action.payload, balls: batter.balls + 1} : batter),
-        // allBattersRuns: [batterState.allBattersRuns.id = batterState.currBatterId,
-          // batterState.allBattersRuns.runs = Number(batterState.allBattersRuns.runs) + action.payload]
+      console.log("Yep! Here!");
+      // Got to improve this to tidy up the return.
       }
-      } else {
-        console.log("Go ahead with ", action.payload);
       return {
         ...batterState, 
-              allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: action.payload, balls: 1}]
-         
-      } } 
+             ...batterState.allBattersRuns.find((batterExists) => batterExists.id !== batterState.currBatterId) ? {allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]} : alert("Found")
+          //  allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: Number(batterState.allBattersRuns.runs) + Number(action.payload)}]
+      }  
     };
   }
 }
   
+// }
+
 function App() {
   const [
     {
