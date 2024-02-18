@@ -186,6 +186,10 @@ function App() {
             >
               Remove
             </button>
+            {allBattersRuns.map((batter) => (
+              
+              <p key={batter.id}>{batter.runs}</p>
+            ))}
           </li>
         ))}
         {/* dispatchHT({type: "took/playerBatting", payload: {currentBatter: true, playerId: player.id }})} */}
