@@ -62,6 +62,7 @@ const batterInitialState = {
   currBatterName: "",
   currBatterRuns: 0,
   currBatterBalls: 0,
+  isOut: false,
 };
 function batterReducer(batterState, action) {
   switch (action.type) {
@@ -90,8 +91,7 @@ function batterReducer(batterState, action) {
       return {
         ...batterState, 
         allBattersRuns: batterState.allBattersRuns.map((batter) => batter.id === batterState.currBatterId ? {...batter, runs: Number(batter.runs) + action.payload, balls: batter.balls + 1} : batter),
-        // allBattersRuns: [batterState.allBattersRuns.id = batterState.currBatterId,
-          // batterState.allBattersRuns.runs = Number(batterState.allBattersRuns.runs) + action.payload]
+        
       }
       } else {
         console.log("Go ahead with ", action.payload);
@@ -100,7 +100,26 @@ function batterReducer(batterState, action) {
               allBattersRuns: [...batterState.allBattersRuns, {id: batterState.currBatterId, runs: action.payload, balls: 1}]
          
       } } 
-    };
+    }
+
+    case "batter/out": {
+      const checkBatterExists = batterState.allBattersRuns.find((batter) => batter.id === batterState.currBatterId);
+     
+      if(checkBatterExists) {
+      console.log("Yep! Here! ", action.payload);
+      return {
+        ...batterState, 
+        allBattersRuns: batterState.allBattersRuns.map((batter) => batter.id === batterState.currBatterId ? {...batter, isOut: true, } : batter),
+        
+      }
+      } else {
+        
+      return {
+        ...batterState, 
+              
+         
+      } } 
+    }
   }
 }
   
@@ -142,6 +161,7 @@ function App() {
       currBatterName,
       currBatterRuns,
       currBatterBalls,
+      isOut,
     },
     dispatchBatter,
   ] = useReducer(batterReducer, batterInitialState);
@@ -179,6 +199,20 @@ function App() {
             >
               Batting
             </button>
+            
+            {allBattersRuns.map((batter) => (
+              batter.id === player.id ?
+              <span key={batter.id}>{batter.runs} {batter.balls}</span> : ""
+            ))}
+
+<button
+              onClick={() =>
+                dispatchBatter({ type: "batter/out", payload: true })
+              }
+            >
+              OUT
+            </button>
+
             <button
               onClick={() =>
                 dispatchHT({ type: "deleted/homePlayer", payload: player.id })
@@ -186,17 +220,13 @@ function App() {
             >
               Remove
             </button>
-            {allBattersRuns.map((batter) => (
-              batter.id === player.id ?
-              <span key={batter.id}>{batter.runs} {batter.balls}</span> : ""
-            ))}
           </li>
         ))}
         {/* dispatchHT({type: "took/playerBatting", payload: {currentBatter: true, playerId: player.id }})} */}
       </ul>
 
       {/* ------------------------------ A W A Y  T E A M ------------------------------ */}
-      <p>away team list here</p>
+      
       <h1>Away Team</h1>
       <input
         type="text"
@@ -207,6 +237,9 @@ function App() {
         }}
       />
       <br />
+      <button onClick={() => {dispatchBatter({ type: "hit/runs", payload: Number(0) }), dispatchBatter({ type: "runs/scored", payload: Number(0) })}}>
+        Zero
+      </button>
       <button onClick={() => {dispatchBatter({ type: "hit/runs", payload: Number(1) }), dispatchBatter({ type: "runs/scored", payload: Number(1) })}}>
         1 run
       </button>
