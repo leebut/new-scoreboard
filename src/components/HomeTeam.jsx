@@ -6,7 +6,7 @@ function HomeTeam({
   playerId,
 }) {
   return (
-    <>
+    <div>
       {/* ------------------------------ H O M E  T E A M ------------------------------ */}
 
       <h1>Home Team</h1>
@@ -38,7 +38,7 @@ function HomeTeam({
             </button>
             {allBattersRuns.map((batter) =>
               batter.id === player.id ? (
-                <>
+                <div key={`${batter.id}${batter.id}`}>
                   <span>
                     {batter.runs} {batter.balls}
                   </span>
@@ -52,7 +52,7 @@ function HomeTeam({
                   >
                     OUT
                   </button>
-                </>
+                </div>
               ) : (
                 ""
               )
@@ -67,7 +67,7 @@ function HomeTeam({
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

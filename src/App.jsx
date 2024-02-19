@@ -171,7 +171,7 @@ function App() {
   const playerId = crypto.randomUUID();
 
   return (
-    <>
+    <div>
       {/* ------------------------------ H O M E  T E A M ------------------------------ */}
       <HomeTeam
         dispatchAT={dispatchAT}
@@ -250,7 +250,7 @@ function App() {
       >
         6 runs
       </button>
-    </>
+    </div>
   );
 }
 
