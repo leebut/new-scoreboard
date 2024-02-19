@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 function HomeTeam({
   dispatchHT,
   dispatchBatter,
@@ -38,7 +40,7 @@ function HomeTeam({
             </button>
             {allBattersRuns.map((batter) =>
               batter.id === player.id ? (
-                <div key={`${batter.id}${batter.id}`}>
+                <Fragment key={`${batter.id}${batter.id}`}>
                   <span>
                     {batter.runs} {batter.balls}
                   </span>
@@ -52,7 +54,7 @@ function HomeTeam({
                   >
                     OUT
                   </button>
-                </div>
+                </Fragment>
               ) : (
                 ""
               )

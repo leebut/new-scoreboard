@@ -65,10 +65,12 @@ const batterInitialState = {
 function batterReducer(batterState, action) {
   switch (action.type) {
     case "faced/ballBatter": {
+    
       return {
         ...batterState,
         currBatterId: action.payload.id,
         currBatterName: action.payload.name,
+      
       };
     }
     // case "hit/runs": {
