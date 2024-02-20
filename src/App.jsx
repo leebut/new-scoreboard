@@ -65,12 +65,10 @@ const batterInitialState = {
 function batterReducer(batterState, action) {
   switch (action.type) {
     case "faced/ballBatter": {
-    
       return {
         ...batterState,
         currBatterId: action.payload.id,
         currBatterName: action.payload.name,
-      
       };
     }
     // case "hit/runs": {
@@ -118,7 +116,7 @@ function batterReducer(batterState, action) {
       );
 
       if (checkBatterExists) {
-        console.log("Yep! Here! ", action.payload);
+        console.log("OUUUUUUUUT! ", action.payload);
         return {
           ...batterState,
           allBattersRuns: batterState.allBattersRuns.map((batter) =>
